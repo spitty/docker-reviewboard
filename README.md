@@ -1,3 +1,5 @@
+This is fork of original [Dockerized](https://github.com/ikatson/docker-reviewboard) [Reviewboard](https://github.com/reviewboard/reviewboard/) by [@ikatson](https://github.com/ikatson).
+
 docker-reviewboard
 ==================
 
@@ -17,7 +19,7 @@ The requirements are PostgreSQL and memcached, you can use either dockersized ve
     docker run -v /.ssh -v /media --name rb-data busybox true
 
     # Run reviewboard
-    docker run -it --link rb-postgres:pg --link rb-memcached:memcached --volumes-from rb-data -p 8000:8000 ikatson/reviewboard
+    docker run -it --link rb-postgres:pg --link rb-memcached:memcached --volumes-from rb-data -p 8000:8000 spitty/reviewboard
 
 After that, go the url, e.g. ```http://localhost:8000/```, login as ```admin:admin```, change the admin password, and change the location of your SMTP server so that the reviewboard can send emails. You are all set!
 
@@ -27,7 +29,7 @@ For details, read below.
 
 If you want to build this yourself, just run this:
 
-    docker build -t 'ikatson/reviewboard' git://github.com/ikatson/docker-reviewboard.git
+    docker build -t 'spitty/reviewboard' git://github.com/spitty/docker-reviewboard.git
 
 ## Dependencies
 
@@ -87,7 +89,7 @@ E.g. ```-e UWSGI_PROCESSES=10``` will create 10 reviewboard processes.
 
     # Create a data container.
     docker run -v /.ssh -v /media --name rb-data busybox true
-    docker run -it --link rb-postgres:pg --link memcached:memcached --volumes-from rb-data -p 8000:8000 ikatson/reviewboard
+    docker run -it --link rb-postgres:pg --link memcached:memcached --volumes-from rb-data -p 8000:8000 spitty/reviewboard
 
 ### Example. Run with postgres and memcached installed on the host machine.
 
@@ -95,7 +97,7 @@ E.g. ```-e UWSGI_PROCESSES=10``` will create 10 reviewboard processes.
 
     # Create a data container.
     docker run -v /.ssh -v /media --name rb-data busybox true
-    docker run -it -p 8000:8080 --volumes-from rb-data -e PGHOST="$DOCKER_HOST_IP" -e PGPASSWORD=123 -e PGUSER=reviewboard -e MEMCACHED="$DOCKER_HOST_IP":11211 ikatson/reviewboard
+    docker run -it -p 8000:8080 --volumes-from rb-data -e PGHOST="$DOCKER_HOST_IP" -e PGPASSWORD=123 -e PGUSER=reviewboard -e MEMCACHED="$DOCKER_HOST_IP":11211 spitty/reviewboard
 
 Now, go to the url, e.g. ```http://localhost:8000/```, login as ```admin:admin``` and change the password. The reviewboard is almost ready to use!
 
